@@ -1,0 +1,389 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
+    <link rel="stylesheet" href="./css/style.css">
+    <title>HK Travel</title>
+</head>
+<body>
+    <div id="banner">
+        <img src="./images/banner.jpg" style="width: 100%;height: 300px;">
+    </div>
+    <div id="menu">
+        <nav>
+            <ul id="menutop">
+                <li><a href="index.html">
+                    <i class="icon-home fas fa-home"></i>
+                </a></li>
+                <li><a href="#" title="TRANG CHỦ">TRANG CHỦ</a></li>
+                <li>
+                     <a href="#" title="TÀI NGUYÊN DU LỊCH">TÀI NGUYÊN DU LỊCH</a>
+                     <ul class="sub-menu">
+                        <li><a href="#" title=" menu sub item 1">DU LỊCH NỘI THÀNH</a></li>
+                        <li><a href="#" title=" menu sub item 1">DU LỊCH NGOẠI Ô</a></li>
+                        <li><a href="#" title=" menu sub item 1">CÁC TRUNG TÂM GIẢI TRÍ</a></li>
+                    </ul> 
+                </li>
+                <li><a href="#" title="GÓP Ý">GÓP Ý</a></li>
+                <li><a href="#" title="KHÁCH SẠN">KHÁCH SẠN</a></li>
+                <li><a href="#" title="TIN TỨC">TIN TỨC</a></li>
+                <li><a href="#" title="LIÊN HỆ">LIÊN HỆ</a></li>
+                <div class="dangnhap-1">
+                    <a href="dangnhap.html">Đăng Nhập</a>
+                </div>
+                <!-- <li class="timkiemdau">
+                    <span class="auth-form__dangnhap">
+                        <input type="text" name="search" class="search" placeholder="Tìm Kiếm ......">
+                        <img src="../layout1/images/icon2.png" style="width: 30px;height: 30px;float: right;">
+                    </span> 
+                </li> -->
+                 <!-- <span class="auth-form__icon">
+                    <i class="auth-form__icon-search fas fa-search" style="float: right;"></i> 
+                </span>  -->
+               
+            </ul>
+        </nav>
+    </div>
+    
+    <div id="wrapper">
+        <div class="container">
+            <button id="myBtn" title="Go to top">
+                <i class="fas fa-chevron-up"></i>
+            </button>
+        </div>
+        
+        
+        
+        <div id="content">
+            <h1 style="text-align: center;margin-top: 20px;color: rgb(27, 46, 16);">TRANG CHỦ</h1>
+            <br>
+            <div class="slideshow-container">
+
+                <div class="mySlides fade">
+                    
+                    <img src="./images/1.jpg" style="width:100%">
+                    
+                </div>
+                
+                <div class="mySlides fade">
+                    
+                    <img src="./images/2.jpg" style="width:100%">
+                    
+                </div>
+                
+                <div class="mySlides fade">
+                   
+                    <img src="./images/3.jpg" style="width:100%">
+                    
+                </div>
+                
+                
+                
+                </div>
+                <br>
+                
+                <div style="text-align:center">
+                    <span class="dot" onclick="currentSlide(1)"></span> 
+                    <span class="dot" onclick="currentSlide(2)"></span> 
+                    <span class="dot" onclick="currentSlide(3)"></span> 
+                </div>
+                
+            <script>
+                var slideIndex = 1;
+                    showSlides(slideIndex);
+                
+                function plusSlides(n) {
+                    showSlides(slideIndex += n);
+                }
+                
+                function currentSlide(n) {
+                    showSlides(slideIndex = n);
+                }
+                
+                function showSlides(n) {
+                    var i;
+                    var slides = document.getElementsByClassName("mySlides");
+                    var dots = document.getElementsByClassName("dot");
+                    if (n > slides.length) {slideIndex = 1}    
+                    if (n < 1) {slideIndex = slides.length}
+                    for (i = 0; i < slides.length; i++) {
+                        slides[i].style.display = "none";  
+                    }
+                    for (i = 0; i < dots.length; i++) {
+                        dots[i].className = dots[i].className.replace(" active", "");
+                    }
+                    slides[slideIndex-1].style.display = "block";  
+                    dots[slideIndex-1].className += " active";
+                }
+                function addComment(){
+                    let formData = {
+                        name: $('#name').val(),
+                        email: $('#email').val(),
+                        comment: $('#comment').val(),
+                        blogId: $('#frm-comment').data('blogId'),
+                        agree: $('#agree').prop('checked')
+                    };
+                    
+                    $.ajax({
+                        url: "http://127.0.0.1:5500/layout1/index.html/users/authenticate",
+                        dataType: "json",
+                        type : "POST",
+                        data: {
+                            username: 'test',
+                            password: '1c3cr3@m'
+                        },
+                        success : function(r) {
+                            $.ajax({
+                            url: "http://127.0.0.1:5500/layout1/index.html/users/comment",
+                            dataType: "json",
+                            type : "POST",
+                            headers: {
+                                "Authorization": 'Bearer ' + r.token
+                            },
+                            data: formData,
+                            success : function(r) {
+                                loadDetails(formData.blogId);
+                            },
+                            error: function(xhr, status, error) {
+                                window.alert(error);
+                            }
+                        });
+                        }
+                    });
+                    return false;
+                }
+                
+                window.onscroll = function() {scrollFunction()};
+               
+                function scrollFunction() {
+                    
+                    if (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20) {
+                        
+                        document.getElementById("myBtn").style.display = "block";
+                    } else {
+                        
+                        document.getElementById("myBtn").style.display = "none";
+                    }
+                }
+                
+                document.getElementById('myBtn').addEventListener("click", function(){
+                    
+                    document.body.scrollTop = 0;
+                    document.documentElement.scrollTop = 0;
+                });
+            </script>  
+            <br>
+            <br>
+            <div id="bantin">
+                <h1 style="text-align: center;color: rgb(27, 46, 16);">TIN TỨC</h1>
+                <br>
+                <br>
+                <div id="cot-1">
+                    <ul>
+                        <li>
+                            <img src="../layout1/images/abc.jpg" style="width: 150px; height: 100px;" >
+                            <a href="#"><h2>Các địa điểm du lịch sinh thái tại Đà Nẵng khiến dân tình chết mê chết mệt </h2></a>
+    
+                            Khi đặt tour Bà Nà đến với thành phố Đà Nẵng, du khách không chỉ bị mê hoặc bởi vẻ đẹp của những bãi biển, sự năng động của một thành phố...
+
+                        </li>
+                        <li><img src="../layout1/images/xyz.jpg" style="width: 150px; height: 100px;" >
+                            <a href="#"><h2>Săn lùng chợ cá gỗ Mân Thái – Địa điểm hot rần rần tại</h2></a>
+    
+                            Đà Nẵng không chỉ nổi tiếng các địa điểm du lịch quy mô thế giới như Bà Nà Hills, núi Thần Tài,… Nơi đây còn có nhiều địa điểm tham quan tuyệt...
+
+
+                                
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+                <div id="cot-2">
+                    <ul>
+                        <li>
+                            <img src="../layout1/images/mnp.jpg" style="width: 150px; height: 100px;" >
+                            <a href=""><h2>Đổ xô check in địa điểm du lịch bán đảo Sơn Trà cực đẹp mới nổi hiện nay</h2></a>
+    
+                            Nếu Hội An có hòn đảo Cù Lao Chàm xinh đẹp với phong cảnh hữu tình mà du khách có thể tham quan. Ở Đà Nẵng, du lịch bán đảo Sơn Trà...
+                        </li>
+                        <li><img src="../layout1/images/opq.jpg" style="width: 150px; height: 100px;" >
+                            <a href="#"><h2>Buổi tối đi đâu Đà Nẵng? Bật mí các địa điểm du lịch về đêm ở Đà Nẵng </h2></a>
+    
+                            Có lẽ, Đà Nẵng đã quá nổi tiếng với các địa điểm du lịch. Câu hỏi đặt ra: buổi tối đi đâu Đà Nẵng? Đây chính là điều mà nhiều du khách...
+                                
+                        </li>
+                        
+                        
+                    </ul>
+                </div>
+            </div>
+
+            <div>
+                <img src="../layout1/images/banner2.jpg" style="width: 880px;height: 350px;">
+            </div>
+
+            <br><br>
+
+            <div class="clearfix">
+                <h1 style="text-align: center;color: rgb(27, 46, 16);margin-bottom: 10px;">TIN MỚI NHẤT</h1>
+                <div class="art-menu">
+                    <h3>TIN TỨC MỚI CẬP NHẬT</h3>
+                    <a href="#">Bắt thêm hai người trong đường dây đưa người nhập cảnh</a>
+                    <a href="#">Đà Nẵng gỡ phong tỏa nhiều điểm, nới hoạt động vận tải</a>
+                    <a href="#">Hai bãi biển Việt vào top đẹp nhất châu Á</a>
+                </div>
+                <div class="art-menu">
+                    <h3>VĂN BẢN PHÁP LÝ</h3>
+                    <a href="#">Thông tư 32/2020/TT- BGDĐT Ban hành Điều lệ trường THCS, trường THPT và trường phổ thông có nhiều cấp học</a>
+                    <a href="#">Thời khóa biểu số 3, thực hiện từ ngày 21/09/2020</a>
+                    <a href="#">Công văn 6235 của Ùy ban Nhân dân tỉnh Quảng Nam về phòng, chống dịch Covid-19 trong tình hình mới</a>
+                </div>
+                <div class="art-menu">
+                    <h3>TIN NỔI BẬT</h3>
+                    <a href="#"> Thông báo tuyển bảo vệ</a>
+                    <a href="#">Đà Nẵng xét nghiệm cho hơn 50.000 công nhân</a>
+                    <a href="#">Nam nhân viên khách sạn ở Đà Nẵng khỏi Covid-19</a>
+                </div>
+                <div class="art-menu">
+                    <h3>TIN VẮNG</h3>
+                    <a href="#">Nhóm cho vay nặng lãi định hối lộ cảnh sát 911 Đà Nẵng</a>
+                    <a href="#">Khởi tố vụ án lừa 165 người đi lao động ở Hàn Quốc</a>
+                    <a href="#">Mạo danh giám đốc ngân hàng, lừa gần 15 tỷ đồng</a>
+                </div>
+            </div>
+            <br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+
+            <div class="gopy">
+                <h1>Góp Ý</h1>
+                <form method="POST" id="frm-comment" data-blog-id="{{id}}" onsubmit="return addComment()">
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="name">Họ và Tên</label>
+                            <br>
+                            <input type="text" class="form-control  " name="name" id="name" placeholder="Nhập tên của bạn" required>
+                        </div>
+                        <div class="form-group col">
+                            <label for="email">Email của bạn</label>
+                            <br>
+                            <input type="email" class="form-control " name="email" id="email" placeholder="Nhập email của bạn" required>
+                        </div>
+                        <div class="col">Viết bình luận</div>
+                    </div>
+                    <div class="row">
+                        <div class="form-group col">
+                            <label for="comment"></label>
+                            <textarea class="form-control-sm " name="comment" id="comment" rows="3" placeholder="Viết bình luận ở đây" required></textarea>
+                        </div>
+                    </div>
+                    <div class="row m-0">
+                        <div class="form-check form-check-inline col">
+                            <label class="form-check-label">
+                                <input class="form-check-input" type="checkbox" name="agree" id="agree" value="false" required> Đồng ý với Điều Khoản & Điều Kiện
+                            </label>
+                        </div>
+                        <div class="col text-right">
+                            <button type="submit" class="btn-link">Nhấn để gửi góp ý</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            
+                
+                
+                
+            
+                
+        </div>
+        <div id="right">
+
+            <div class="menu_left">
+                <img src="./images/banner_top.jpg" style="width: 300px;">
+                <h2>DANH SÁCH</h2>
+                <ul>
+                    <li><a href="">Giới Thiệu Doanh Nghiệp</a></li>
+                    <li><a href="">Trung Tâm Hỗ Trợ</a></li>
+                    <li><a href="">Tour Gì Cũng Có</a></li>
+                    <li><a href="">Đi Thôi Nào !</a></li>
+                    <li><a href="">Liên Hệ</a></li>
+                    <li><a href="">Góp Ý</a></li>
+                    <li><a href="">Giải Đáp Thắc Mắc</a></li>
+                </ul>
+            </div>
+            
+            <div class="search-form">
+                <div class="search-box">  
+                    <h2>TÌM KIẾM</h2>  
+                    <input type="text" class="search-txt" name="" placeholder="Search...">
+                    <a href="#" class="search-btn">
+                        <i class="fas fa-search"></i>
+                    </a>
+
+                </div>
+
+            </div>
+
+            <br>
+            <br>
+            <br>
+            <br>
+            <br><br><br>
+
+            <div class="social">
+                <div class="social-form">
+                    <h2>FACEBOOK</h2>
+                    <a href="https://www.facebook.com/khang.phuc.5876060/" class="social-form__txt">Phúc Khang</a>
+                    <a href="https://www.facebook.com/khang.phuc.5876060/"><img src="../layout1/images/ảnh pr face.png" ></a>
+                    <h4>Trang Web Người Sáng Lập</h4>
+                </div>
+            </div>
+
+            
+
+        </div>
+        <div id="footer">
+             
+            <div class="header-footer">
+                <div class="footer-contact">
+                    <div class="contact-1">
+                        <h2 class="footer-h2">Liên Hệ Với Chúng Tôi</h2>
+                        <h2 class="footer-h2__pr">Trường Đại Học CNTT & TT Việt Hàn</h2>
+                        <p>Đ/C : 470 Đường Trần Đại Nghĩa, Hoà Hải, Ngũ Hành Sơn, Đà Nẵng 550000, Việt Nam
+                        <p>Đ/T : 0961077473</p>   
+                        <p>Email : vlpkhang.20it9@vku.udn.vn ;
+                        </p>
+
+                    </div>
+                    
+                    <div class="social">
+                        <a href="" class="social--facebook btn-icon">
+                            <i class="social-icon fab fa-facebook-square"></i>
+                            <span class="social-tittle">
+                                <a href="https://www.facebook.com/khang.phuc.5876060/" style="text-decoration: none;">
+                                    liên hệ bằng facebook
+                                </a>
+                            </span>
+                        </a>
+                        <a href="" class="social--google btn-icon">
+                            <i class="social-icon fab fa-google"></i>
+                            <span class="social-tittle">
+                                liên hệ bằng google
+                            </span>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="footer-address">
+                    <h2 class="footer-h2">Bản Đồ</h2>
+                    <img src="../layout1/images/ảnh bản đồ.png" style="width: 250px;height: 250px;">
+                </div>
+            </div>
+
+                
+        </div>
+    </div>
+
+</body>
+</html>

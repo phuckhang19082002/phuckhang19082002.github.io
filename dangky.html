@@ -1,0 +1,57 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://use.fontawesome.com/releases/v5.15.3/js/all.js"></script>
+    
+    <link rel="stylesheet" href="../layout1/css/dangky.css">
+    <title>Document</title>
+</head>
+<body>
+    <div class="container">
+        <form class="form-login">
+            <h1>Đăng Ký</h1>
+            <div class="form-text">
+                <label>Tài Khoản</label>
+                <input type="text">
+            </div>
+            <div class="form-text">
+                <label>Mật Khẩu</label>
+                <input type="password">
+            </div>
+            <div class="form-text">
+                <label>Nhập Lại Mật Khẩu</label>
+                <input type="password">
+            </div>
+            <button>
+                <a href="dangnhap.html">
+                    <i class="fas fa-chevron-left"></i>
+                </a>
+            </button>
+            <button >Đăng Ký</button>
+            
+            <span>Bằng việc đăng ký bạn đã đồng ý với PK Travel về 
+            <a href="">điều khoản dịch vụ</a> & <a href="">Chính sách bảo mật</a>
+            </span>
+        </form>
+    </div>
+    <script>
+        const formLogin = document.querySelectorAll('.form-text input')
+        const formLabel = document.querySelectorAll('.form-text label')
+        // const formLabel = document.querySelectorAll('.form-text label')
+        for(let i=0;i<2;i++){
+            formLogin[i].addEventListener("mouseover",function(){
+                formLabel[i].classList.add("focus")
+            })
+            formLogin[i].addEventListener("mouseout",function(){
+                if(formLogin[i].value == "") {
+                    formLabel[i].classList.remove("focus")
+                }
+                
+            })
+        }
+
+    </script>
+</body>
+</html>
